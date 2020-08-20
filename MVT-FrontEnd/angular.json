@@ -1,39 +1,36 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "projects",
   "projects": {
     "MVT-FrontEnd": {
       "projectType": "application",
       "schematics": {},
-      "root": "",
-      "sourceRoot": "src",
+      "root": "apps/MVT-FrontEnd",
+      "sourceRoot": "apps/MVT-FrontEnd/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/MVT-FrontEnd",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "outputPath": "dist/apps/MVT-FrontEnd",
+            "index": "apps/MVT-FrontEnd/src/index.html",
+            "main": "apps/MVT-FrontEnd/src/main.ts",
+            "polyfills": "apps/MVT-FrontEnd/src/polyfills.ts",
+            "tsConfig": "apps/MVT-FrontEnd/tsconfig.app.json",
+            "aot": true,
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "apps/MVT-FrontEnd/src/favicon.ico",
+              "apps/MVT-FrontEnd/src/assets"
             ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "styles": ["apps/MVT-FrontEnd/src/styles.css"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "apps/MVT-FrontEnd/src/environments/environment.ts",
+                  "with": "apps/MVT-FrontEnd/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -41,7 +38,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -80,17 +76,15 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
+            "main": "apps/MVT-FrontEnd/src/test.ts",
+            "polyfills": "apps/MVT-FrontEnd/src/polyfills.ts",
+            "tsConfig": "apps/MVT-FrontEnd/tsconfig.spec.json",
+            "karmaConfig": "apps/MVT-FrontEnd/karma.conf.js",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "apps/MVT-FrontEnd/src/favicon.ico",
+              "apps/MVT-FrontEnd/src/assets"
             ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "styles": ["apps/MVT-FrontEnd/src/styles.css"],
             "scripts": []
           }
         },
@@ -98,19 +92,22 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
+              "apps/MVT-FrontEnd/tsconfig.app.json",
+              "apps/MVT-FrontEnd/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
-        },
+        }
+      }
+    },
+    "MVT-FrontEnd-e2e": {
+      "projectType": "application",
+      "root": "apps/MVT-FrontEnd-e2e",
+      "architect": {
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
+            "protractorConfig": "apps/MVT-FrontEnd-e2e/protractor.conf.js",
             "devServerTarget": "MVT-FrontEnd:serve"
           },
           "configurations": {
@@ -118,9 +115,49 @@
               "devServerTarget": "MVT-FrontEnd:serve:production"
             }
           }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/MVT-FrontEnd-e2e/tsconfig.json",
+            "exclude": ["**/node_modules/**"]
+          }
         }
       }
-    }},
+    },
+    "test": {
+      "projectType": "library",
+      "root": "libs/test",
+      "sourceRoot": "libs/test/src",
+      "prefix": "mvt-front-end",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/test/tsconfig.lib.json",
+              "libs/test/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/test/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/test/jest.config.js",
+            "tsConfig": "libs/test/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/test/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    }
+  },
   "defaultProject": "MVT-FrontEnd",
   "cli": {
     "defaultCollection": "@nrwl/angular"
@@ -133,5 +170,6 @@
     "@nrwl/angular:library": {
       "unitTestRunner": "jest"
     }
-  }
+  },
+  "newProjectRoot": ""
 }
