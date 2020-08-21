@@ -22,7 +22,7 @@
               "apps/MVT-FrontEnd/src/favicon.ico",
               "apps/MVT-FrontEnd/src/assets"
             ],
-            "styles": ["apps/MVT-FrontEnd/src/styles.css"],
+            "styles": ["node_modules/@nebular/theme/styles/prebuilt/default.css"],
             "scripts": []
           },
           "configurations": {
@@ -148,6 +148,38 @@
             "tsConfig": "libs/test/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "libs/test/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "services": {
+      "projectType": "library",
+      "root": "libs/services",
+      "sourceRoot": "libs/services/src",
+      "prefix": "mvt-front-end",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/services/tsconfig.lib.json",
+              "libs/services/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/services/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/services/jest.config.js",
+            "tsConfig": "libs/services/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/services/src/test-setup.ts"
           }
         }
       },

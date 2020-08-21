@@ -1,26 +1,17 @@
 {
-  "compileOnSave": false,
+
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
+    "module": "commonjs",
+    "target": "es5",
     "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
     "experimentalDecorators": true,
-    "module": "es2020",
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "allowJs": true,
+    "paths": {
+      "@mvt-front-end/test": ["libs/test/src/index.ts"],
+      "@mvt-front-end/services": ["libs/services/src/index.ts"]
+    },
+    "baseUrl": ".",
+    "rootDir": "."
   },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
-  }
+  "exclude": ["node_modules"]
 }

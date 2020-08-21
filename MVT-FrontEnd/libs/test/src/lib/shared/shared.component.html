@@ -1,0 +1,18 @@
+<nb-card>
+  <nb-card-header>
+    <h3>Login form</h3>
+  </nb-card-header>
+  <nb-card-body>
+    <input type="text" nbInput fullWidth status="basic" placeholder="Username">
+    <input type="password" nbInput fullWidth status="basic" placeholder="Password">
+    <button nbButton (click)="submit()">Login</button>
+    <button nbButton (click)="getSubmitUser()">Get User</button>
+
+  </nb-card-body>
+  <nb-card-body>
+    <div *ngIf="retVal | async as user">
+      <p>{{user.userName}}</p>
+    </div>
+  </nb-card-body>
+</nb-card>
+
